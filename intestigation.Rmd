@@ -25,7 +25,10 @@ library(tidyverse)
 
 ```{r load-data}
 # load your data 
-
+df <- read_csv("data/AdjudicationsQ12023.csv")
+view(df)
+prisondata <- df[-c(1, 2, 5, 11)]
+view(prisondata)
 
 
 
