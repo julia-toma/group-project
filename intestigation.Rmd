@@ -41,4 +41,9 @@ prisondata <- prisondata %>%
 
 prisondata <- prisondata %>% mutate(violent = case_when(offence == "Violence" ~ "Yes", offence == "Wilful Damage" ~ "Yes", TRUE ~ "No"))
 prisondata
+
+prisondata %>%
+  group_by(age_group) %>%
+  count()
+
 ```

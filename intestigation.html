@@ -402,6 +402,22 @@ prisondata</code></pre>
 ## 10 Category A (High Se… Belmarsh      M     21 - 24   b Black/… i No re… Wilful…
 ## # ℹ 24,637 more rows
 ## # ℹ 2 more variables: number_of_offences &lt;dbl&gt;, violent &lt;chr&gt;</code></pre>
+<pre class="r"><code>prisondata %&gt;%
+  group_by(age_group) %&gt;%
+  count()</code></pre>
+<pre><code>## # A tibble: 9 × 2
+## # Groups:   age_group [9]
+##   age_group       n
+##   &lt;chr&gt;       &lt;int&gt;
+## 1 15 - 17       515
+## 2 18 - 20      2402
+## 3 21 - 24      4365
+## 4 25 - 29      5360
+## 5 30 - 39      6870
+## 6 40 - 49      3359
+## 7 50 - 59      1372
+## 8 60 - 69       334
+## 9 70 and over    70</code></pre>
 
 
 
