@@ -38,4 +38,7 @@ view(prisondata)
 
 prisondata <- prisondata %>%
   rename("prison_type" = "Predominant function of establishment", "establishment" = "Establishment", "sex" = "Sex", "age_group" = "Age group", "religion" = "Religion", "offence" = "Offence", "number_of_offences" = "Count")
+
+prisondata <- prisondata %>% mutate(violent = case_when(offence == "Violence" ~ "Yes", offence == "Wilful Damage" ~ "Yes", TRUE ~ "No"))
+prisondata
 ```
