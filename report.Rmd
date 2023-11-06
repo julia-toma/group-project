@@ -75,4 +75,5 @@ Make sure to hide your code with  `echo = FALSE` unless the point you are trying
 
 List any references here. You should, at a minimum, list your data source.
 
+Definition of violence - Merriam-Webster Dictionary - https://www.merriam-webster.com/dictionary/violence
 
