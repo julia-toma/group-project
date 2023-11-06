@@ -33,8 +33,9 @@ library(tidyverse)
 
 Describe your research question here. Include why this question might be of interest. 
 
+Is there a correlation between the severity of the crime, in terms of violence, and the number of re-offences of the crime? Does this change for different age groups, sexes or prison establishments? 
 
-
+This is of interest because finding a correlation could help lower the number of crimes committed in prisons. 
 
 
 ## Data
