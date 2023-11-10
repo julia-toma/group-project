@@ -380,29 +380,17 @@ df &lt;- read_csv(&quot;data/AdjudicationsQ12023.csv&quot;)</code></pre>
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code>view(df)</code></pre>
 <pre class="r"><code>prisondata &lt;- df[-c(1, 2, 5, 11)]
-view(prisondata)
 
 prisondata &lt;- prisondata %&gt;%
   rename(&quot;prison_type&quot; = &quot;Predominant function of establishment&quot;, &quot;establishment&quot; = &quot;Establishment&quot;, &quot;sex&quot; = &quot;Sex&quot;, &quot;age_group&quot; = &quot;Age group&quot;, &quot;ethnicity&quot; = &quot;Ethnicity&quot;, &quot;religion&quot; = &quot;Religion&quot;, &quot;offence&quot; = &quot;Offence&quot;, &quot;number_of_offences&quot; = &quot;Count&quot;)
 
-prisondata &lt;- prisondata %&gt;% mutate(violent = case_when(offence == &quot;Violence&quot; ~ &quot;Yes&quot;, offence == &quot;Wilful Damage&quot; ~ &quot;Yes&quot;, TRUE ~ &quot;No&quot;))
-prisondata</code></pre>
-<pre><code>## # A tibble: 24,647 × 9
-##    prison_type          establishment sex   age_group ethnicity religion offence
-##    &lt;chr&gt;                &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;  
-##  1 Category A (High Se… Belmarsh      M     18 - 20   b Black/… a Chris… Disobe…
-##  2 Category A (High Se… Belmarsh      M     18 - 20   b Black/… a Chris… Violen…
-##  3 Category A (High Se… Belmarsh      M     18 - 20   b Black/… a Chris… Violen…
-##  4 Category A (High Se… Belmarsh      M     18 - 20   b Black/… a Chris… Wilful…
-##  5 Category A (High Se… Belmarsh      M     18 - 20   b Black/… b Muslim Disobe…
-##  6 Category A (High Se… Belmarsh      M     18 - 20   b Black/… b Muslim Violen…
-##  7 Category A (High Se… Belmarsh      M     18 - 20   d Other … i No re… Wilful…
-##  8 Category A (High Se… Belmarsh      M     18 - 20   e White   a Chris… Wilful…
-##  9 Category A (High Se… Belmarsh      M     21 - 24   b Black/… b Muslim Violen…
-## 10 Category A (High Se… Belmarsh      M     21 - 24   b Black/… i No re… Wilful…
-## # ℹ 24,637 more rows
-## # ℹ 2 more variables: number_of_offences &lt;dbl&gt;, violent &lt;chr&gt;</code></pre>
-<pre class="r"><code>prisondata %&gt;%
+prisondata &lt;- prisondata %&gt;% 
+mutate(violent = case_when(offence == &quot;Violence&quot; ~ &quot;Yes&quot;, offence == &quot;Wilful Damage&quot; ~ &quot;Yes&quot;, TRUE ~ &quot;No&quot;)) %&gt;%
+mutate(sex = case_when(sex == &quot;M&quot; ~ 1,
+                       sex == &quot;F&quot; ~ 2))
+view(prisondata)
+
+prisondata %&gt;%
   group_by(age_group) %&gt;%
   count()</code></pre>
 <pre><code>## # A tibble: 9 × 2
