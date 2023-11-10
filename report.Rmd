@@ -31,11 +31,12 @@ library(tidyverse)
 
 ## Research Question
 
-Describe your research question here. Include why this question might be of interest. 
+Our research question and why it's of interest:
 
-Is there a correlation between the violence of a crime and the number of re-offences of said crime? Does this change for different age groups, sexes or prison establishments? 
+We are looking at the number of crimes committed within prisons by different age groups and sexes, and at prisons of different security levels. We have looked at the proportion of crimes committed that are violent, to see if there is a correlation between committing violent crimes and re-offending.Essentially, our question is do those who have a tendency towards violence have a stronger tendency to commit crime in general?
 
-This is of interest because finding a correlation could help lower the number of crimes committed in prisons. 
+
+We consider this question to be of interest because violence in prisons..
 
 
 ## Data
