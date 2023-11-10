@@ -1,7 +1,7 @@
 ---
-title: "Presentation title"
-subtitle: "Presentation subtitle (if any)"
-author: "Team name <br> Names of team members"
+title: "Crimes Committed within Prisons in the UK"
+subtitle: "correlation between violence and re-offending"
+author: "The Ravens <br> Raven, Elanna, Maisie, Julia"
 institute: "University of Edinburgh"
 date: "`r Sys.Date()`"
 output:
@@ -47,7 +47,7 @@ knitr::opts_chunk$set(fig.retina = 3, dpi = 300, fig.width = 6, fig.asp = 0.618,
 
 #Background image
 style_xaringan(
-  title_slide_background_image = "img/confetti.jpg"
+  title_slide_background_image = "img/prisonbars.jpg"
 )
 ```
 
