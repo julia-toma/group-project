@@ -40,6 +40,8 @@ knitr::opts_chunk$set(fig.retina = 3, dpi = 300, fig.width = 6, fig.asp = 0.618,
 
 ```{r load-data, include=FALSE}
 # Load your data here
+df <- read_csv("data/AdjudicationsQ12023.csv")
+
 
 ```
 
@@ -53,7 +55,7 @@ style_xaringan(
 
 class: center, middle
 
-## A statement of the overall goal / research question
+## Investigating the correlation between number of crimes committed in prison and the violence of the crime. 
 
 ---
 
