@@ -52,3 +52,11 @@ prisondata %>%
   count()
 
 ```
+```{r}
+ggplot(data = prisondata, mapping = aes(x = age_group, fill = violent)) +
+  geom_bar() +
+  facet_wrap(~prison_type, ncol = 2, scales = "free") +
+  theme(
+    axis.text = element_text(size = 5)
+)
+```
