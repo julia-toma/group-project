@@ -423,6 +423,42 @@ prisondata%&gt;%
 ##   mean_for_age
 ##          &lt;dbl&gt;
 ## 1         1.89</code></pre>
+<pre class="r"><code>prisondata%&gt;%
+  filter(age_group==&quot;21 - 24&quot;)%&gt;%summarise(mean_for_age=mean(number_of_offences,na.rm=TRUE))</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##   mean_for_age
+##          &lt;dbl&gt;
+## 1         1.69</code></pre>
+<pre class="r"><code>prisondata%&gt;%
+  filter(age_group==&quot;25 - 29&quot;)%&gt;%summarise(mean_for_age=mean(number_of_offences,na.rm=TRUE))</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##   mean_for_age
+##          &lt;dbl&gt;
+## 1         1.81</code></pre>
+<pre class="r"><code>prisondata%&gt;%
+  filter(age_group==&quot;30 - 39&quot;)%&gt;%summarise(mean_for_age=mean(number_of_offences,na.rm=TRUE))</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##   mean_for_age
+##          &lt;dbl&gt;
+## 1         2.13</code></pre>
+<pre class="r"><code>prisondata%&gt;%
+  filter(age_group==&quot;40 - 49&quot;)%&gt;%summarise(mean_for_age=mean(number_of_offences,na.rm=TRUE))</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##   mean_for_age
+##          &lt;dbl&gt;
+## 1         1.70</code></pre>
+<pre class="r"><code>prisondata%&gt;%
+  filter(age_group==&quot;50 - 59&quot;)%&gt;%summarise(mean_for_age=mean(number_of_offences,na.rm=TRUE))</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##   mean_for_age
+##          &lt;dbl&gt;
+## 1         1.40</code></pre>
+<pre class="r"><code>prisondata%&gt;%
+  filter(age_group==&quot;70 and over&quot;)%&gt;%summarise(mean_for_age=mean(number_of_offences,na.rm=TRUE))</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##   mean_for_age
+##          &lt;dbl&gt;
+## 1         1.19</code></pre>
 
 
 

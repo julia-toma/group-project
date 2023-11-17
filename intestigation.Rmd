@@ -65,5 +65,23 @@ ggplot(data = prisondata, mapping = aes(x = age_group, fill = violent)) +
 #summary statistics
 prisondata%>%
  filter(age_group=="18 - 20")%>%summarise(mean_for_age=mean(number_of_offences,na.rm=TRUE))
+
+prisondata%>%
+  filter(age_group=="21 - 24")%>%summarise(mean_for_age=mean(number_of_offences,na.rm=TRUE))
+
+prisondata%>%
+  filter(age_group=="25 - 29")%>%summarise(mean_for_age=mean(number_of_offences,na.rm=TRUE))
+
+prisondata%>%
+  filter(age_group=="30 - 39")%>%summarise(mean_for_age=mean(number_of_offences,na.rm=TRUE))
+
+prisondata%>%
+  filter(age_group=="40 - 49")%>%summarise(mean_for_age=mean(number_of_offences,na.rm=TRUE))
+
+prisondata%>%
+  filter(age_group=="50 - 59")%>%summarise(mean_for_age=mean(number_of_offences,na.rm=TRUE))
+
+prisondata%>%
+  filter(age_group=="70 and over")%>%summarise(mean_for_age=mean(number_of_offences,na.rm=TRUE))
 ```
 
