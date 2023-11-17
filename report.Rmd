@@ -79,3 +79,8 @@ List any references here. You should, at a minimum, list your data source.
 
 Definition of violence - Merriam-Webster Dictionary - https://www.merriam-webster.com/dictionary/violence
 
+Obtained code for modifying axis text size for first visualisations -
+https://ggplot2.tidyverse.org/articles/faq-customising.html#:~:text=in%20theme()%20.-,In%20both%20cases%2C%20set%20font%20size%20in%20the%20size%20argument,title.
+
+
+
