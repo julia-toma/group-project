@@ -60,3 +60,10 @@ ggplot(data = prisondata, mapping = aes(x = age_group, fill = violent)) +
     axis.text = element_text(size = 5)
 )
 ```
+
+```{r}
+#summary statistics
+prisondata%>%
+ filter(age_group=="18 - 20")%>%summarise(mean_for_age=mean(number_of_offences,na.rm=TRUE))
+```
+
