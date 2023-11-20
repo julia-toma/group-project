@@ -4,7 +4,7 @@
     <title>Crimes Committed within Prisons in the UK</title>
     <meta charset="utf-8" />
     <meta name="author" content="The Ravens   Raven, Elanna, Maisie, Julia" />
-    <meta name="date" content="2023-11-10" />
+    <meta name="date" content="2023-11-20" />
     <script src="libs/header-attrs-2.25/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -25,7 +25,7 @@ class: center, middle, inverse, title-slide
 ### University of Edinburgh
 ]
 .date[
-### 2023-11-10
+### 2023-11-20
 ]
 
 ---
@@ -42,15 +42,37 @@ class: center, middle, inverse, title-slide
 
 
 
-class: center, middle
+class: inverse, center, middle
 
-## Investigating the correlation between number of crimes committed in prison and the violence of the crime. 
+## Investigating the correlation between the violence of the prisoner and the number of reoffences committed. 
 
 ---
 
-class: inverse, center, middle
+# Why is this important?
 
-# Section title
+- By evaluating the trends in prisoners that reoffend, solutions can be made to try and lower this reoffence rate.
+
+- Our dataset has 24,647 prisoners who committed a crime in prison during the first quarter of 2023. Of these prisoners, 8137 reoffended multiple times.
+
+---
+# Number of Reoffending Crimes by Prison Type 
+
+.pull-left[
+- Prison Types are government 
+]
+
+.pull-right[
+
+```r
+ggplot(data = prisondata, mapping = aes(x = age_group, fill = violent)) +
+  geom_bar() +
+  facet_wrap(~prison_type, ncol = 2, scales = "free") +
+  theme(
+    axis.text = element_text(size = 5))
+```
+
+&lt;img src="presentation_files/figure-html/unnamed-chunk-2-1.png" width="80%" /&gt;
+]
 
 ---
 
@@ -146,7 +168,7 @@ glance(model)
 - goes here
 ]
 .pull-right[
-&lt;img src="presentation_files/figure-html/unnamed-chunk-2-1.png" width="100%" /&gt;
+&lt;img src="presentation_files/figure-html/unnamed-chunk-3-1.png" width="100%" /&gt;
 ]
 
 ---
