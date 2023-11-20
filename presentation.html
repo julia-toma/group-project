@@ -58,27 +58,19 @@ class: inverse, center, middle
 # Number of Reoffending Crimes by Prison Type 
 
 .pull-left[
-- Prison Types are government 
+- Prison categories are based on the government 
+- 
 ]
 
 .pull-right[
-
-```r
-ggplot(data = prisondata, mapping = aes(x = age_group, fill = violent)) +
-  geom_bar() +
-  facet_wrap(~prison_type, ncol = 2, scales = "free") +
-  theme(
-    axis.text = element_text(size = 5))
-```
-
-&lt;img src="presentation_files/figure-html/unnamed-chunk-2-1.png" width="80%" /&gt;
+&lt;img src="presentation_files/figure-html/plot-1.png" width="80%" /&gt;
 ]
 
 ---
 
-# Hello World
+# Which factors effect the violence of the prisoner?
 
-- Click the `Knit` button to compile your presentation
+- Age statistics 
 
 - Make sure to commit and push all resulting files to your GitHub repo
 
@@ -168,7 +160,7 @@ glance(model)
 - goes here
 ]
 .pull-right[
-&lt;img src="presentation_files/figure-html/unnamed-chunk-3-1.png" width="100%" /&gt;
+&lt;img src="presentation_files/figure-html/unnamed-chunk-2-1.png" width="100%" /&gt;
 ]
 
 ---

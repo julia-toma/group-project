@@ -79,11 +79,12 @@ class: inverse, center, middle
 # Number of Reoffending Crimes by Prison Type 
 
 .pull-left[
-- Prison Types are government 
+- Prison categories are based on the government 
+- 
 ]
 
 .pull-right[
-``` {r}
+``` {r plot, echo = FALSE}
 
 ggplot(data = prisondata, mapping = aes(x = age_group, fill = violent)) +
   geom_bar() +
@@ -95,9 +96,9 @@ ggplot(data = prisondata, mapping = aes(x = age_group, fill = violent)) +
 
 ---
 
-# Hello World
+# Which factors effect the violence of the prisoner?
 
-- Click the `Knit` button to compile your presentation
+- Age statistics 
 
 - Make sure to commit and push all resulting files to your GitHub repo
 
