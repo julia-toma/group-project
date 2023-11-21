@@ -16,6 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r load-lib, message = FALSE}
 library(tidyverse)
+library(tidymodels)
 # Add any other libraries here
 
 
@@ -43,7 +44,7 @@ mutate(violent = case_when(offence == "Violence" ~ "Yes", offence == "Wilful Dam
 mutate(sex = case_when(sex == "M" ~ 1,
                        sex == "F" ~ 2))
 
-prisondata <- prisondata %>% mutate(reoffender = case_when(number_of_offences == 1 ~ FALSE, number_of_offences != 1 ~ TRUE))
+prisondata <- prisondata %>% mutate(reoffender = case_when(number_of_offences == 1 ~ 1, number_of_offences != 1 ~ 0))
 
 view(prisondata)
 
@@ -85,3 +86,105 @@ prisondata%>%
   filter(age_group=="70 and over")%>%summarise(mean_for_age=mean(number_of_offences,na.rm=TRUE))
 ```
 
+```{r factor-relevelling}
+#Relevel prison type
+
+prisondatamodel <- prisondata
+prisondatamodel <- prisondatamodel %>% 
+  mutate(prison_type = as.factor(prison_type)) %>%
+  mutate(prison_type = fct_relevel(prison_type, c("Category A (High Security)", "Category B", "Category C", "Category D (Open)", "Local", "Young Offender Institution (YOI)", "Youth Justice Board", "Female")))
+
+#Relevel sex
+
+prisondatamodel <- prisondatamodel %>%
+  mutate(sex = as.factor(sex)) %>%
+  mutate(sex = fct_relevel(sex, c("1", "2")))
+
+#Relevel age group
+
+prisondatamodel <- prisondatamodel %>%
+  mutate(age_group = as.factor(age_group)) %>%
+  mutate(age_group = fct_relevel(age_group, c("15 - 17", "18 - 20", "21 - 24", "25 - 29", "30 - 39", "40 - 49", "50 - 59", "60 - 69", "70 and over")))
+
+#Relevel religion
+
+prisondatamodel <- prisondatamodel %>% 
+  filter(religion != "Not recorded") %>%
+  mutate(religion = as.factor(religion)) %>%
+  mutate(religion = fct_relevel(religion, c("a Christian", "b Muslim", "c Hindu", "d Sikh", "e Buddhist", "f Jewish", "g Other religious groups", "i No religion")))
+
+#Relevel violent
+
+prisondatamodel <- prisondatamodel %>% 
+  mutate(violent = as.factor(violent)) %>%
+  mutate(violent = fct_relevel(violent, c("Yes", "No")))
+
+#Relevel reoffender
+
+prisondatamodel <- prisondatamodel %>% 
+  mutate(reoffender = as.factor(reoffender)) %>%
+  mutate(reoffender = fct_relevel(reoffender, c("0", "1")))
+
+prisonmodelsdata <- prisondatamodel
+```
+
+```{r splitting data}
+
+pmd_split <- initial_split(prisonmodelsdata, prop = 0.75)
+
+pmd_train <- training(pmd_split)
+pmd_test <- testing(pmd_split)
+```
+
+```{r building model 1}
+
+pmd_model1 <- logistic_reg() %>%
+  set_engine("glm")
+
+pmd_recipe1 <- recipe(reoffender ~ violent, data = pmd_train) %>%
+  step_dummy(violent, -reoffender)
+
+pmd_workflow1 <- workflow() %>%
+  add_model(pmd_model1) %>%
+  add_recipe(pmd_recipe1)
+
+pmd_fit1 <- pmd_workflow1 %>%
+  fit(data = pmd_train)
+```
+
+```{r building model 2}
+
+pmd_model2 <- logistic_reg() %>%
+  set_engine("glm")
+
+pmd_recipe2 <- recipe(reoffender ~ violent + age_group + sex + prison_type + religion, data = pmd_train) %>%
+  step_dummy(all_nominal_predictors(), -reoffender)
+
+pmd_workflow2 <- workflow() %>%
+  add_model(pmd_model2) %>%
+  add_recipe(pmd_recipe2)
+
+pmd_fit2 <- pmd_workflow2 %>%
+  fit(data = pmd_train)
+```
+
+```{r pred-roc for models}
+
+pmd_prediction1 <- predict(pmd_fit1, pmd_test, type = "prob") %>%
+  bind_cols(pmd_test)
+
+pmd_prediction2 <- predict(pmd_fit2, pmd_test, type = "prob") %>%
+  bind_cols(pmd_test)
+
+pmd_roccurve1 <- pmd_prediction1 %>%
+  roc_curve(truth = reoffender, .pred_1) %>% autoplot()
+
+pmd_rocauc1 <- pmd_prediction1 %>%
+  roc_auc(truth = reoffender, .pred_1)
+
+pmd_roccurve2 <- pmd_prediction2 %>%
+  roc_curve(truth = reoffender, .pred_1) %>% autoplot()
+
+pmd_rocauc2 <- pmd_prediction2 %>%
+  roc_auc(truth = reoffender, .pred_1)
+```
