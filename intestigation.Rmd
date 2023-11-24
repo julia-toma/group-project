@@ -167,6 +167,15 @@ pmd_workflow2 <- workflow() %>%
 pmd_fit2 <- pmd_workflow2 %>%
   fit(data = pmd_train)
 ```
+```{r}
+tidy(pmd_fit1)
+```
+
+
+```{r}
+tidy(pmd_fit2)
+```
+
 
 ```{r pred-roc for models}
 
