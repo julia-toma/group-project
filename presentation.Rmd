@@ -68,19 +68,26 @@ class: inverse, center, middle
 ## Investigating the correlation between the violence of the prisoner and the number of reoffences committed. 
 
 ---
+# The Prison Data Set
 
+- Our original data set 
+---
 # Why is this important?
 
 - By evaluating the trends in prisoners that reoffend, solutions can be made to try and lower this reoffence rate.
 
 - Our dataset has 24,647 prisoners who committed a crime in prison during the first quarter of 2023. Of these prisoners, 8137 reoffended multiple times.
+---
+
+class: inverse, centre, middle
+# Our Findings 
 
 ---
 # Number of Reoffending Crimes by Prison Type 
 
 .pull-left[
 - Prison categories are based on the government 
-- 
+- The violence of the crime in represented by the colours, red being non-violent and blue being violent.
 ]
 
 .pull-right[
@@ -100,7 +107,7 @@ ggplot(data = prisondata, mapping = aes(x = age_group, fill = violent)) +
 
 - Age statistics 
 
-- Make sure to commit and push all resulting files to your GitHub repo
+- Gender
 
 ---
 
