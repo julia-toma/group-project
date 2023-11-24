@@ -197,3 +197,108 @@ pmd_roccurve2 <- pmd_prediction2 %>%
 pmd_rocauc2 <- pmd_prediction2 %>%
   roc_auc(truth = reoffender, .pred_1)
 ```
+
+```{r}
+#looking at predictions
+pmd_prediction1 <- predict(pmd_fit1, pmd_test, type = "prob") %>%
+  bind_cols(pmd_test)
+
+pmd_prediction1
+```
+
+```{r}
+#roc curve for prediction 1
+pmd_prediction1 %>%
+  roc_curve(truth = reoffender, .pred_1) %>%
+  autoplot()
+```
+
+```{r}
+#looking at predictions 2
+pmd_prediction2 <- predict(pmd_fit2, pmd_test, type = "prob") %>%
+  bind_cols(pmd_test)
+
+pmd_prediction2
+```
+```{r}
+#roc curve for prediction 2
+pmd_prediction2 %>%
+  roc_curve(truth = reoffender, .pred_1) %>%
+  autoplot()
+
+```
+
+```{r}
+
+pmd_model3 <- logistic_reg() %>%
+  set_engine("glm")
+
+pmd_recipe3 <- recipe(reoffender ~ prison_type, data = pmd_train) %>%
+  step_dummy(all_nominal_predictors(), -reoffender)
+
+pmd_workflow3 <- workflow() %>%
+  add_model(pmd_model3) %>%
+  add_recipe(pmd_recipe3)
+
+pmd_fit3 <- pmd_workflow3 %>%
+  fit(data = pmd_train)
+```
+
+```{r}
+tidy(pmd_fit3)
+```
+
+```{r}
+pmd_prediction3 <- predict(pmd_fit3, pmd_test, type = "prob") %>%
+  bind_cols(pmd_test)
+
+pmd_prediction3
+```
+
+
+```{r}
+#roc curve for prediction 3, prison type
+pmd_prediction3 %>%
+  roc_curve(truth = reoffender, .pred_1) %>%
+  autoplot()
+```
+
+```{r}
+#area under the curve for prediction 3
+pmd_prediction3 %>%
+  roc_auc (truth = reoffender, .pred_1)
+```
+
+```{r}
+pmd_model4 <- logistic_reg() %>%
+  set_engine("glm")
+
+pmd_recipe4 <- recipe(violent ~ sex, data = pmd_train) %>%
+  step_dummy(all_nominal_predictors(), -violent)
+
+pmd_workflow4 <- workflow() %>%
+  add_model(pmd_model4) %>%
+  add_recipe(pmd_recipe4)
+
+pmd_fit4 <- pmd_workflow4 %>%
+  fit(data = pmd_train)
+```
+
+```{r}
+pmd_prediction4 <- predict(pmd_fit4, pmd_test, type = "prob") %>%
+  bind_cols(pmd_test)
+
+pmd_prediction4
+```
+
+
+```{r}
+pmd_prediction4 %>%
+  roc_curve(truth = violent, .pred_Yes) %>%
+  autoplot()
+```
+```{r}
+pmd_prediction4 %>%
+  roc_auc (truth = violent, .pred_Yes)
+```
+
