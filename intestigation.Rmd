@@ -44,7 +44,7 @@ mutate(violent = case_when(offence == "Violence" ~ "Yes", offence == "Wilful Dam
 mutate(sex = case_when(sex == "M" ~ 1,
                        sex == "F" ~ 2))
 
-prisondata <- prisondata %>% mutate(reoffender = case_when(number_of_offences == 1 ~ 1, number_of_offences != 1 ~ 0))
+prisondata <- prisondata %>% mutate(reoffender = case_when(number_of_offences == 1 ~ 0, number_of_offences > 1 ~ 1))
 
 view(prisondata)
 
