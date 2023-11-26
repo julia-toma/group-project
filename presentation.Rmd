@@ -66,17 +66,24 @@ style_xaringan(
 class: inverse, center, middle
 
 ## Investigating the correlation between the violence of the prisoner and the number of reoffences committed. 
+---
+class: centre, middle
 
+## Our Data Set and Research Question
 ---
 # The Prison Data Set
 
-- Our original data set 
+- Our original data set came from the Government website, and details the criminal offences committed in prisons in England and Wales between the months of January and March of 2023.
+
+- We tidied the data, mutating the detailed offence to show whether the crime committed was violent or non-violent. When doing this, we took violent to mean "the use of physical force as to injure, abuse, damage or destroy". 
+
+- The variables in the data set were mainly characters so we changes many of these variables to be numerical to make producing models and visualisations easier. 
 ---
-# Why is this important?
+# Our research question and its importance?
 
-- By evaluating the trends in prisoners that reoffend, solutions can be made to try and lower this reoffence rate.
+- We wanted to investigate whether the violence of the prisoner (based on whether they committed a violent crime or not) had any correlation with reoffending.
 
-- Our dataset has 24,647 prisoners who committed a crime in prison during the first quarter of 2023. Of these prisoners, 8137 reoffended multiple times.
+- Our dataset has 24,647 prisoners who committed a crime in prison during the first quarter of 2023. Of these prisoners, 8137 reoffended multiple times. If a trend, and therefore a solution could be found, the number of reoffenders could decrease creating a safer environments in prisons.
 ---
 
 class: inverse, centre, middle
@@ -105,7 +112,13 @@ ggplot(data = prisondata, mapping = aes(x = age_group, fill = violent)) +
 
 # Which factors effect the violence of the prisoner?
 
-- Age statistics 
+- Prison Type and Reoffending 
+
+pull right [
+``` {r}
+
+```
+]
 
 - Gender
 
