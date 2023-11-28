@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r load-lib, message = FALSE}
 library(tidyverse)
 library(tidymodels)
-# Add any other libraries here
+# Added packages for tidyverse and tidymodels
 
 
 
