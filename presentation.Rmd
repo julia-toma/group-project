@@ -51,7 +51,7 @@ mutate(violent = case_when(offence == "Violence" ~ "Yes", offence == "Wilful Dam
 mutate(sex = case_when(sex == "M" ~ 1,
                        sex == "F" ~ 2))
 
-prisondata <- prisondata %>% mutate(reoffender = case_when(number_of_offences == 1 ~ FALSE, number_of_offences != 1 ~ TRUE))
+prisondata <- prisondata %>% mutate(reoffender = case_when(number_of_offences == 1 ~ 0, number_of_offences != 1 ~ 1))
 
 ```
 
@@ -81,7 +81,7 @@ class: centre, middle
 ---
 # Our research question and its importance?
 
-- We wanted to investigate whether the violence of the prisoner (based on whether they committed a violent crime or not) had any correlation with reoffending.
+- We wanted to investigate whether any variables of the prisoner like sex, the prison type they are at, violence of the prisoner and age had any correlation with reoffending.
 
 - Our dataset has 24,647 prisoners who committed a crime in prison during the first quarter of 2023. Of these prisoners, 8137 reoffended multiple times. If a trend, and therefore a solution could be found, the number of reoffenders could decrease creating a safer environments in prisons.
 ---
@@ -109,44 +109,192 @@ ggplot(data = prisondata, mapping = aes(x = age_group, fill = violent)) +
 ]
 
 ---
+class: inverse, centre, middle
 
-# Which factors effect the violence of the prisoner?
+# Which factors affect the reoffending?
 
-- Prison Type and Reoffending 
-
-pull right [
-``` {r building models echo = FALSE}
+---
+#Prison Type and Violence 
+.pull-left[
+- The area under the ROC curve is 0.474 which tells us that the prison type variable is not effective at predicting whether a prisoner will reoffend.
+]
+.pull-right[
+```{r, echo = FALSE}
 prisondatamodel <- prisondata
 prisondatamodel <- prisondatamodel %>% 
   mutate(prison_type = as.factor(prison_type)) %>%
   mutate(prison_type = fct_relevel(prison_type, c("Category A (High Security)", "Category B", "Category C", "Category D (Open)", "Local", "Young Offender Institution (YOI)", "Youth Justice Board", "Female")))
 
-```
-]
-
---- 
-
-- Sex
-pull right [
-```{r sex model echo = FALSE}
 prisondatamodel <- prisondatamodel %>%
   mutate(sex = as.factor(sex)) %>%
   mutate(sex = fct_relevel(sex, c("1", "2")))
 
-```
-
-]
-
----
-- Age Group 
-pull left [
-```{r age model echo = FALSE}
 prisondatamodel <- prisondatamodel %>%
   mutate(age_group = as.factor(age_group)) %>%
   mutate(age_group = fct_relevel(age_group, c("15 - 17", "18 - 20", "21 - 24", "25 - 29", "30 - 39", "40 - 49", "50 - 59", "60 - 69", "70 and over")))
+
+prisondatamodel <- prisondatamodel %>% 
+  filter(religion != "Not recorded") %>%
+  mutate(religion = as.factor(religion)) %>%
+  mutate(religion = fct_relevel(religion, c("a Christian", "b Muslim", "c Hindu", "d Sikh", "e Buddhist", "f Jewish", "g Other religious groups", "i No religion")))
+
+prisondatamodel <- prisondatamodel %>% 
+  mutate(violent = as.factor(violent)) %>%
+  mutate(violent = fct_relevel(violent, c("Yes", "No")))
+
+prisondatamodel <- prisondatamodel %>% 
+  mutate(reoffender = as.factor(reoffender)) %>%
+  mutate(reoffender = fct_relevel(reoffender, c("0", "1")))
+
+prisonmodelsdata <- prisondatamodel
+
+pmd_split <- initial_split(prisonmodelsdata, prop = 0.75)
+
+pmd_train <- training(pmd_split)
+pmd_test <- testing(pmd_split)
+
+pmd_model3 <- logistic_reg() %>%
+  set_engine("glm")
+
+pmd_recipe3 <- recipe(reoffender ~ prison_type, data = pmd_train) %>%
+  step_dummy(all_nominal_predictors(), -reoffender)
+
+pmd_workflow3 <- workflow() %>%
+  add_model(pmd_model3) %>%
+  add_recipe(pmd_recipe3)
+
+pmd_fit3 <- pmd_workflow3 %>%
+  fit(data = pmd_train)
+
+pmd_prediction3 <- predict(pmd_fit3, pmd_test, type = "prob") %>%
+  bind_cols(pmd_test)
+```
+
+``` {r building model, echo = FALSE}
+pmd_prediction3 %>%
+  roc_curve(truth = reoffender, .pred_1) %>%
+  autoplot()
+
+```
+]
+---
+# Reoffending and Violence 
+
+.pull-left[
+```{r, echo = FALSE}
+pmd_model1 <- logistic_reg() %>%
+  set_engine("glm")
+
+pmd_recipe1 <- recipe(reoffender ~ violent, data = pmd_train) %>%
+  step_dummy(violent, -reoffender)
+
+pmd_workflow1 <- workflow() %>%
+  add_model(pmd_model1) %>%
+  add_recipe(pmd_recipe1)
+
+pmd_fit1 <- pmd_workflow1 %>%
+  fit(data = pmd_train)
+
+pmd_prediction1 <- predict(pmd_fit1, pmd_test, type = "prob") %>%
+  bind_cols(pmd_test)
+
+pmd_prediction1 %>%
+  roc_curve(truth = reoffender, .pred_1) %>%
+  autoplot()
+
 ```
 
 ]
+---
+# Reoffending and violence, age, sex, religion and prison type 
+
+.pull-left[
+```{r, echo = FALSE}
+pmd_model2 <- logistic_reg() %>%
+  set_engine("glm")
+
+pmd_recipe2 <- recipe(reoffender ~ violent + age_group + sex + prison_type + religion, data = pmd_train) %>%
+  step_dummy(all_nominal_predictors(), -reoffender)
+
+pmd_workflow2 <- workflow() %>%
+  add_model(pmd_model2) %>%
+  add_recipe(pmd_recipe2)
+
+pmd_fit2 <- pmd_workflow2 %>%
+  fit(data = pmd_train)
+
+pmd_prediction2 <- predict(pmd_fit2, pmd_test, type = "prob") %>%
+  bind_cols(pmd_test)
+
+pmd_prediction2 %>%
+  roc_curve(truth = reoffender, .pred_1) %>%
+  autoplot()
+```
+
+]
+
+.pull-right[
+- The area under the curve is 
+]
+---
+# Age Group 
+
+.pull-left[
+```{r, echo = FALSE}
+pmd_model2 <- logistic_reg() %>%
+  set_engine("glm")
+
+pmd_recipe2 <- recipe(reoffender ~ violent + age_group + sex + prison_type + religion, data = pmd_train) %>%
+  step_dummy(all_nominal_predictors(), -reoffender)
+
+pmd_workflow2 <- workflow() %>%
+  add_model(pmd_model2) %>%
+  add_recipe(pmd_recipe2)
+
+pmd_fit2 <- pmd_workflow2 %>%
+  fit(data = pmd_train)
+
+pmd_prediction2 <- predict(pmd_fit2, pmd_test, type = "prob") %>%
+  bind_cols(pmd_test)
+```
+
+```{r age model, echo = FALSE}
+pmd_prediction2 %>%
+  roc_curve(truth = reoffender, .pred_1) %>%
+  autoplot()
+```
+
+]
+---
+# Violence and Sex
+
+.pull-left[
+```{r, echo = FALSE}
+pmd_model4 <- logistic_reg() %>%
+  set_engine("glm")
+
+pmd_recipe4 <- recipe(violent ~ sex, data = pmd_train) %>%
+  step_dummy(all_nominal_predictors(), -violent)
+
+pmd_workflow4 <- workflow() %>%
+  add_model(pmd_model4) %>%
+  add_recipe(pmd_recipe4)
+
+pmd_fit4 <- pmd_workflow4 %>%
+  fit(data = pmd_train)
+
+pmd_prediction4 <- predict(pmd_fit4, pmd_test, type = "prob") %>%
+  bind_cols(pmd_test)
+
+pmd_prediction4 %>%
+  roc_curve(truth = violent, .pred_Yes) %>%
+  autoplot()
+```
+]
+.pull-right[
+- The area under the curve is 0.496 showing again there is no correlation between the sex of the prisoner and the violence of the crimes they commit 
+]
+
 ---
 # Summary of Findings
 

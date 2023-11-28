@@ -60,7 +60,7 @@ class: centre, middle
 ---
 # Our research question and its importance?
 
-- We wanted to investigate whether the violence of the prisoner (based on whether they committed a violent crime or not) had any correlation with reoffending.
+- We wanted to investigate whether any variables of the prisoner like sex, the prison type they are at, violence of the prisoner and age had any correlation with reoffending.
 
 - Our dataset has 24,647 prisoners who committed a crime in prison during the first quarter of 2023. Of these prisoners, 8137 reoffended multiple times. If a trend, and therefore a solution could be found, the number of reoffenders could decrease creating a safer environments in prisons.
 ---
@@ -81,19 +81,82 @@ class: inverse, centre, middle
 ]
 
 ---
+class: inverse, centre, middle
 
-# Which factors effect the violence of the prisoner?
+# Which factors affect the reoffending?
 
-- Prison Type and Reoffending 
+---
+#Prison Type and Violence 
+.pull-left[
+- The area under the ROC curve is 0.474 which tells us that the prison type variable is not effective at predicting whether a prisoner will reoffend.
+]
+.pull-right[
 
-pull right [
+
+&lt;img src="presentation_files/figure-html/building model-1.png" width="80%" /&gt;
+]
+---
+# Reoffending and Violence 
+
+.pull-left[
+&lt;img src="presentation_files/figure-html/unnamed-chunk-3-1.png" width="80%" /&gt;
+
+]
+---
+# Reoffending and violence, age, sex, religion and prison type 
+
+.pull-left[
+
+```
+## New names:
+## New names:
+## • `age_group_X18...20` -&gt; `age_group_X18`
+## • `age_group_X21...24` -&gt; `age_group_X21`
+## • `age_group_X25...29` -&gt; `age_group_X25`
+## • `age_group_X30...39` -&gt; `age_group_X30`
+## • `age_group_X40...49` -&gt; `age_group_X40`
+## • `age_group_X50...59` -&gt; `age_group_X50`
+## • `age_group_X60...69` -&gt; `age_group_X60`
+```
+
+&lt;img src="presentation_files/figure-html/unnamed-chunk-4-1.png" width="80%" /&gt;
 
 ]
 
-- Gender
+.pull-right[
+- The area under the curve is 
+]
+---
+# Age Group 
+
+.pull-left[
+
+```
+## New names:
+## New names:
+## • `age_group_X18...20` -&gt; `age_group_X18`
+## • `age_group_X21...24` -&gt; `age_group_X21`
+## • `age_group_X25...29` -&gt; `age_group_X25`
+## • `age_group_X30...39` -&gt; `age_group_X30`
+## • `age_group_X40...49` -&gt; `age_group_X40`
+## • `age_group_X50...59` -&gt; `age_group_X50`
+## • `age_group_X60...69` -&gt; `age_group_X60`
+```
+
+&lt;img src="presentation_files/figure-html/age model-1.png" width="80%" /&gt;
+
+]
+---
+# Violence and Sex
+
+.pull-left[
+&lt;img src="presentation_files/figure-html/unnamed-chunk-6-1.png" width="80%" /&gt;
+]
+.pull-right[
+- The area under the curve is 0.496 showing again there is no correlation between the sex of the prisoner and the violence of the crimes they commit 
+]
 
 ---
-
 # Summary of Findings
 
 - The models show us that the chance of reoffence cannot be predicted by any variable, including the violence of the crimes committed.
@@ -177,7 +240,7 @@ glance(model)
 - goes here
 ]
 .pull-right[
-&lt;img src="presentation_files/figure-html/unnamed-chunk-3-1.png" width="100%" /&gt;
+&lt;img src="presentation_files/figure-html/unnamed-chunk-7-1.png" width="100%" /&gt;
 ]
 
 ---
