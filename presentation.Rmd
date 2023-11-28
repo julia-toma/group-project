@@ -115,15 +115,39 @@ ggplot(data = prisondata, mapping = aes(x = age_group, fill = violent)) +
 - Prison Type and Reoffending 
 
 pull right [
-``` {r}
+``` {r building models echo = FALSE}
+prisondatamodel <- prisondata
+prisondatamodel <- prisondatamodel %>% 
+  mutate(prison_type = as.factor(prison_type)) %>%
+  mutate(prison_type = fct_relevel(prison_type, c("Category A (High Security)", "Category B", "Category C", "Category D (Open)", "Local", "Young Offender Institution (YOI)", "Youth Justice Board", "Female")))
 
 ```
 ]
 
-- Gender
+--- 
+
+- Sex
+pull right [
+```{r sex model echo = FALSE}
+prisondatamodel <- prisondatamodel %>%
+  mutate(sex = as.factor(sex)) %>%
+  mutate(sex = fct_relevel(sex, c("1", "2")))
+
+```
+
+]
 
 ---
+- Age Group 
+pull left [
+```{r age model echo = FALSE}
+prisondatamodel <- prisondatamodel %>%
+  mutate(age_group = as.factor(age_group)) %>%
+  mutate(age_group = fct_relevel(age_group, c("15 - 17", "18 - 20", "21 - 24", "25 - 29", "30 - 39", "40 - 49", "50 - 59", "60 - 69", "70 and over")))
+```
 
+]
+---
 # Summary of Findings
 
 - The models show us that the chance of reoffence cannot be predicted by any variable, including the violence of the crimes committed.
