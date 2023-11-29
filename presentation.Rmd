@@ -77,7 +77,7 @@ class: centre, middle
 
 - We tidied the data, mutating the detailed offence to show whether the crime committed was violent or non-violent. When doing this, we took violent to mean "the use of physical force as to injure, abuse, damage or destroy". 
 
-- The variables in the data set were mainly characters so we changes many of these variables to be numerical to make producing models and visualisations easier. 
+- The variables in the data set were mainly characters so we changed many of these variables to be numerical to make producing models and visualisations easier. 
 ---
 # Our research question and its importance?
 
