@@ -75,14 +75,14 @@ We found that non-violent crimes make up the majority of crimes committed.
 We then set out to create a model that would predict how many times someone will commit a crime in prison based on their age, gender, type of prison they are in.
 
 
-#Creating new variables
+## Creating new variables
 
 The Adjudications Q1 2022 dataset does specify specifically if crimes are violent or not, it simply details the legal name of the offence committed, e.g. wilful damage, so we used the mutate function to create a new variable, ‘violent’, which split the offences into violent and nonviolent crimes. In hindsight, we perhaps shouldn’t have included wilful damage as a violent crime, considering it means damage to property, whereas a violent crime is typically defined as one which involves violence against a person, or robbery. 
 It is also in this phase that we created the variable ‘reoffender.’ We created this as a binary variable where reoffender = 1 when a prisoner had committed an offence more than once and reoffender = 0 when a prisoner had committed an offence only once. 
 These two variables, violence and reoffender, were to be the basis of our model.
 
 
-#The model
+## The model
 
 As a group we recognised that our data was predominantly categorical. It would have been impractical and difficult to coerce the data into a manner where a linear regression model to predict the outcome of a response variable, therefore we chose to implement a generalised linear model instead. This type of model uses logistic regression, which has the ability to take the values of numerous categorical variables and use those to assign a probability that the response variable being measured will be true or false.  
 
