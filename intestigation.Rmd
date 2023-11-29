@@ -196,6 +196,10 @@ pmd_roccurve2 <- pmd_prediction2 %>%
 
 pmd_rocauc2 <- pmd_prediction2 %>%
   roc_auc(truth = reoffender, .pred_1)
+
+pmd_rocauc1
+
+pmd_rocauc2
 ```
 
 ```{r}
@@ -258,14 +262,14 @@ pmd_prediction3
 
 ```{r}
 #roc curve for prediction 3, prison type
-pmd_prediction3 %>%
+pmd_roccurve3 <- pmd_prediction3 %>%
   roc_curve(truth = reoffender, .pred_1) %>%
   autoplot()
 ```
 
 ```{r}
 #area under the curve for prediction 3
-pmd_prediction3 %>%
+pmd_rocauc3 <- pmd_prediction3 %>%
   roc_auc (truth = reoffender, .pred_1)
 ```
 
@@ -293,12 +297,12 @@ pmd_prediction4
 
 
 ```{r}
-pmd_prediction4 %>%
+pmd_roccurve4 <- pmd_prediction4 %>%
   roc_curve(truth = violent, .pred_Yes) %>%
   autoplot()
 ```
 ```{r}
-pmd_prediction4 %>%
+pmd_rocauc4 <- pmd_prediction4 %>%
   roc_auc (truth = violent, .pred_Yes)
 ```
 
