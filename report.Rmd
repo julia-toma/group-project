@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r load-lib, include = FALSE}
 library(tidyverse)
+library(tidymodels)
 # Add any other libraries here
 
 
@@ -19,58 +20,95 @@ library(tidyverse)
 ```
 
 
-```{r load-data, include=FALSE}
+```{r load-data, echo=FALSE}
 # load your data here and any pre-processing/cleaning 
 #  that you need for your report.
-
+df <- read_csv("data/AdjudicationsQ12023.csv")
 
 
 
 ```
 
 
-## Research Question
+## Our Research Question & Why it's of Interest
 
-Our research question and why it's of interest:
+We are looking at the number of crimes committed within prisons by different age groups and sexes, and at prisons of different security levels. We have looked at the proportion of crimes committed that are violent, to see if there is a correlation between committing violent crimes and re-offending. Essentially, our question is do those who have a tendency towards violence have a stronger tendency to commit crime in general?
 
-We are looking at the number of crimes committed within prisons by different age groups and sexes, and at prisons of different security levels. We have looked at the proportion of crimes committed that are violent, to see if there is a correlation between committing violent crimes and re-offending.Essentially, our question is do those who have a tendency towards violence have a stronger tendency to commit crime in general?
+We consider this question to be of interest because violence in prisons is an obvious issue. Prisons should exist for the purpose of rehabilitation; violence in prisons threatens the ability of the institutions to support vulnerable prison members and lead people to a life free of crime after their sentence. Violence in prisons also threatens prison staff. Persistent and large scale crime within prisons requires a greater number of staff, which takes valuable financial resources away from other spending opportunities that would benefit prisoners and staff to a greater extent.
 
-
-We consider this question to be of interest because violence in prisons..
-
-
-## Data
-
-Briefly describe your dataset here - include a description of the key variables you will be investigating. 
-Include a citation for your data. 
-See http://libraryguides.vu.edu.au/c.php?g=386501&p=4347840 for guidance on proper citation for datasets. 
-If you got your data off the web, make sure to state the retrieval date.
+In theory, knowing which age group etc. is the most likely to commit crime and more specially, violent crime, would help prisons mitigate the problem e.g. by housing prisoners in mixed age accommodation etc. For security, we would expect prisons of a higher security to have a higher rate of violence but perhaps a lower rate of crime because of a greater number of staff.
 
 
+## Our Data set
 
+Ministry of Justice, 28th July 2022, CSV data set and variable guide: Adjudications Q1 2022, electronic data set, Viewed 20th October 2023, https://www.gov.uk/government/statistics/offender-management-statistics-quarterly-january-to-march-2022 
+
+The key variables we are looking at are Age Group, Offence, Count, Sex and Predominant function of establishment. 
+
+Age group is a categorical variable that split prisoners into groups 18-20, 21-24, 25-29, 30-39, 40-49, 50-59, 60-69 and 70 and over.
+
+Offence is a categorical variable that says the offence committed by a singular prisoner whilst in prison.
+
+Count is a numerical variable that gives the number of times that a prisoner committed the same offence.
+
+Predominant Function of Establishment is a categorical variable that tells u the security rating of the prison. There is category A (high security), B (local and training prisons), C (training and resettlement), D (open prisons), Female, Local, Young Offender Institution (YOI) and Youth Justice Board.
 
 
 
 ## Findings
 
-The write-up of your project and findings go here. 
+We started by looking at some initial summary statistics. We looked at the average amount of times a prisoner would repeat the same offence for the different age groups. Our results were as follows:
+Mean for 18-20 year olds = 1.89
+Mean for 21-24 year olds = 1.69
+Mean for 25-29 year olds = 1.81
+Mean for 30-39 year old = 2.13
+Mean for 40-49 year old = 1.70
 
-Think of this as the text of your presentation with some extra detail to cover what there was not time to discuss in the presentation. This might include any assumptions you made when doing your analysis, any limitations of the work you have done or any ideas you have for future work. Feel free to split this section into subsections to make it easier to read. 
+To look at the data further, we then created some visualisations. We created a bar graph for each prison type showing the overall number of offences committed by each age group. 
 
-The length should be roughly 1,500 words. 
-If you want to use a word count addin, you can install this by copying and pasting the following into RStudio:
+(VISUALISATION CODE)
 
-`devtools::install_github("benmarwick/wordcountaddin", type = "source", dependencies = TRUE)`
+From the visualization we can see that the majority of crimes are committed by people in the 30-39 age group, though we suspect that is likely because there is simply more people of that age group in prison. Because our data set only shows data for people who HAVE committed crimes in prison, we are unable to confirm if this is true. We split the offences into violent and non-violent, which is shown by the division of the bars. Interestingly, although perhaps expected, is the fact that we can see in category D prisons (in which prisoners are allowed to leave during the day), there is almost no violent crimes. The prison type with the highest % of violent crimes are ‘Youth Justice Board’ prisons, in which just under half of crimes committed were violent in nature in Q1 of 2022.
 
-You will then need to restart RStudio. Once you have done that, select the text you want to count the words of, go to Addins, and select the `Word count` addin.
-This addin counts words using two different algorithms, but the results should be similar and as long as you're in the ballpark of 1,500 words, you're good! 
-The addin will ignore code chunks and only count the words in prose. If you don't want to use the addin you can always copy and paste the text into Microsoft Word to do a Word Count!
+We found that non-violent crimes make up the majority of crimes committed.
 
-You can also load your data here and present any analysis results / plots.
-Make sure to hide your code with  `echo = FALSE` unless the point you are trying to make is about the code itself, in which case you should show your code.
+We then set out to create a model that would predict how many times someone will commit a crime in prison based on their age, gender, type of prison they are in.
 
 
+#Creating new variables
 
+The Adjudications Q1 2022 dataset does specify specifically if crimes are violent or not, it simply details the legal name of the offence committed, e.g. wilful damage, so we used the mutate function to create a new variable, ‘violent’, which split the offences into violent and nonviolent crimes. In hindsight, we perhaps shouldn’t have included wilful damage as a violent crime, considering it means damage to property, whereas a violent crime is typically defined as one which involves violence against a person, or robbery. 
+It is also in this phase that we created the variable ‘reoffender.’ We created this as a binary variable where reoffender = 1 when a prisoner had committed an offence more than once and reoffender = 0 when a prisoner had committed an offence only once. 
+These two variables, violence and reoffender, were to be the basis of our model.
+
+
+#The model
+
+As a group we recognised that our data was predominantly categorical. It would have been impractical and difficult to coerce the data into a manner where a linear regression model to predict the outcome of a response variable, therefore we chose to implement a generalised linear model instead. This type of model uses logistic regression, which has the ability to take the values of numerous categorical variables and use those to assign a probability that the response variable being measured will be true or false.  
+
+This is done by implementing a workflow for our model, which consisted of a recipe and the model itself. The purpose of the recipe was to ensure that dummy variables were assigned for all of the variables (age group, sex, establishment type, religion and the violent nature of the crime). This process was made seamless by the prior manipulation of the model data where we coerced the categorical data types as factors, which were then relevelled for the purposes of data tidiness. 
+
+The data was then split into a larger training set and a smaller testing set. We created four different models, each containing different predictors, with two models predicting whether or not a particular observation contained reoffences, and the other two predicting whether or not the crime committed was considered violent. The models were fitted to the training set and were then used in the prediction of the value of the reoffender variable and the value of the violent variable (as a factor of 0 for a non-reoffender/nonviolent and 1 for a reoffender/violent), for the testing data set.  
+
+One example of the models we made had the following values: 
+(MODEL RESLUTS)
+
+This means in a logistic context: 
+ 
+Where p is the probability that the value of “reoffender” is 1.  
+Rearranged for p, the new equation gives:
+ 
+Finally, to check the efficacy of our models, we plotted receiver operating characteristic (ROC) curves, which plots the false positive rate against the true positive rate. Broadly speaking, a larger area under the curve corresponds to a stronger correlation between the predictive variables used and the outcome of the response variables. The area under the curves alongside the predictors and outcomes used can be found in the table below: 
+
+(FIRST TWO MODEL RESULTS)
+
+Unfortunately, we found that our models were worse than random at predicting an outcome from our test data. The AUC value from each of our ROC curves was less than 0.5 and on occasion significantly less than.
+
+We then want on to try making some other models, to see if we could make a model that was able to predict an outcome from our variables. We didn’t have any luck with this either, and all our ROC curves showed the models were worse than random. This was, of course, not the outcome we’d hoped for when starting this investigation, though we understand it can be the nature of looking at real data sets. 
+
+(REST OF MODEL RESULTS)
+
+We considered that we possibly went into this investigation with assumptions about correlation that did not actually exist. 
 
 
 ## References
@@ -82,5 +120,5 @@ Definition of violence - Merriam-Webster Dictionary - https://www.merriam-webste
 Obtained code for modifying axis text size for first visualisations -
 https://ggplot2.tidyverse.org/articles/faq-customising.html#:~:text=in%20theme()%20.-,In%20both%20cases%2C%20set%20font%20size%20in%20the%20size%20argument,title.
 
-
+Ministry of Justice, 28th July 2022, CSV data set and variable guide: Adjudications Q1 2022, electronic data set, Viewed 20th October 2023, https://www.gov.uk/government/statistics/offender-management-statistics-quarterly-january-to-march-2022 
 
