@@ -93,7 +93,7 @@ class: inverse, centre, middle
 # Number of Reoffending Crimes by Prison Type 
 
 .pull-left[
-- Prison categories are based on the government 
+- Prison categories are based on the governments' own categories where category A is highest security, and then B and so on. 
 - The violence of the crime in represented by the colours, red being non-violent and blue being violent.
 ]
 
