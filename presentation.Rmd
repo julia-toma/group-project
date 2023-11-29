@@ -213,7 +213,7 @@ pmd_prediction1 %>%
 # Reoffending and violence, age, sex, religion and prison type 
 
 .pull-left[
-```{r, echo = FALSE}
+```{r, echo = FALSE, include = FALSE}
 pmd_model2 <- logistic_reg() %>%
   set_engine("glm")
 
@@ -230,6 +230,8 @@ pmd_fit2 <- pmd_workflow2 %>%
 pmd_prediction2 <- predict(pmd_fit2, pmd_test, type = "prob") %>%
   bind_cols(pmd_test)
 
+```
+```{r, echo = FALSE}
 pmd_prediction2 %>%
   roc_curve(truth = reoffender, .pred_1) %>%
   autoplot()
