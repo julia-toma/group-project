@@ -319,6 +319,10 @@ pmd_prediction4 %>%
 # Summary of Findings
 
 - The models show us that the chance of reoffence cannot be predicted by any variable, including the violence of the crimes committed.
+
+Still, this investigation has been insightful by showing that, at least for Q1 of 2023, there is no way to say for certain if a prisoner is likely to be prone to violence or crime based on identities, and those who commit violent acts are not necessarily more inclined to crime in general.
+
+Of course, we have looked at data for a very short period of time and it would be wrong to extrapolate our findings to make assumptions about UK prison behavior as a whole.
 ---
 class: inverse, middle, centre
 
