@@ -90,6 +90,38 @@ class: inverse, centre, middle
 # Our Findings 
 
 ---
+# Summary Statistics 
+.pull-left[
+```{r, echo = FALSE}
+prisondata%>%
+ filter(age_group=="18 - 20")%>%summarise(mean_for_age=mean(number_of_offences,na.rm=TRUE))
+
+prisondata%>%
+  filter(age_group=="21 - 24")%>%summarise(mean_for_age=mean(number_of_offences,na.rm=TRUE))
+
+prisondata%>%
+  filter(age_group=="25 - 29")%>%summarise(mean_for_age=mean(number_of_offences,na.rm=TRUE))
+
+prisondata%>%
+  filter(age_group=="30 - 39")%>%summarise(mean_for_age=mean(number_of_offences,na.rm=TRUE))
+  
+```
+]
+.pull-right[
+```{r, echo = FALSE}
+prisondata%>%
+  filter(age_group=="40 - 49")%>%summarise(mean_for_age=mean(number_of_offences,na.rm=TRUE))
+
+prisondata%>%
+  filter(age_group=="50 - 59")%>%summarise(mean_for_age=mean(number_of_offences,na.rm=TRUE))
+
+prisondata%>%
+  filter(age_group=="70 and over")%>%summarise(mean_for_age=mean(number_of_offences,na.rm=TRUE))
+```
+
+]
+  
+---
 # Number of Reoffending Crimes by Prison Type 
 
 .pull-left[
