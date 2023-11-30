@@ -20,7 +20,7 @@ library(tidymodels)
 ```
 
 
-```{r load-data, echo=FALSE}
+```{r load-data, include=FALSE}
 # load your data here and any pre-processing/cleaning 
 #  that you need for your report.
 df <- read_csv("data/AdjudicationsQ12023.csv")
@@ -28,7 +28,7 @@ df <- read_csv("data/AdjudicationsQ12023.csv")
 
 
 ```
-```{r, echo=FALSE}
+```{r, include=FALSE}
 prisondata <- df[-c(1, 2, 5, 11)]
 
 prisondata <- prisondata %>%
@@ -43,13 +43,9 @@ prisondata <- prisondata %>% mutate(reoffender = case_when(number_of_offences ==
 
 view(prisondata)
 
-prisondata %>%
-  group_by(age_group) %>%
-  count()
-
 ```
 
-## Our Research Question & Why it's of Interest
+## Our research question & why it's of interest
 
 We are looking at the number of crimes committed within prisons by different age groups and sexes, and at prisons of different security levels. We have looked at the proportion of crimes committed that are violent, to see if there is a correlation between committing violent crimes and re-offending. Essentially, our question is do those who have a tendency towards violence have a stronger tendency to commit crime in general?
 
@@ -58,7 +54,7 @@ We consider this question to be of interest because violence in prisons is an ob
 In theory, knowing which age group etc. is the most likely to commit crime and more specially, violent crime, would help prisons mitigate the problem e.g. by housing prisoners in mixed age accommodation etc. For security, we would expect prisons of a higher security to have a higher rate of violence but perhaps a lower rate of crime because of a greater number of staff.
 
 
-## Our Data set
+## Our data set
 
 Ministry of Justice, 28th July 2022, CSV data set and variable guide: Adjudications Q1 2022, electronic data set, Viewed 20th October 2023, https://www.gov.uk/government/statistics/offender-management-statistics-quarterly-january-to-march-2022 
 
@@ -77,11 +73,11 @@ Predominant Function of Establishment is a categorical variable that tells u the
 ## Findings
 
 We started by looking at some initial summary statistics. We looked at the average amount of times a prisoner would repeat the same offence for the different age groups. Our results were as follows:
-Mean for 18-20 year olds = 1.89
-Mean for 21-24 year olds = 1.69
-Mean for 25-29 year olds = 1.81
-Mean for 30-39 year old = 2.13
-Mean for 40-49 year old = 1.70
+mean for 18-20 year olds = 1.89,
+mean for 21-24 year olds = 1.69,
+mean for 25-29 year olds = 1.81,
+mean for 30-39 year olds = 2.13,
+mean for 40-49 year olds = 1.70
 
 To look at the data further, we then created some visualisations. We created a bar graph for each prison type showing the overall number of offences committed by each age group. 
 
@@ -91,7 +87,8 @@ ggplot(data = prisondata, mapping = aes(x = age_group, fill = violent)) +
   facet_wrap(~prison_type, ncol = 2, scales = "free") +
   theme(
     axis.text = element_text(size = 5)
-)
+) +
+labs(title = "No. of Offences Committed in Different Prison Types", y = "No. of Offences", x = "Age Group")
 ```
 
 
@@ -254,18 +251,22 @@ pmd_prediction1 %>%
 ```
 
 
+Above is the ROC curve for model one.
+
 Unfortunately, we found that our models were worse than random at predicting an outcome from our test data. The AUC value from each of our ROC curves was less than 0.5 and on occasion significantly less than.
 
 We then want on to try making some other models, to see if we could make a model that was able to predict an outcome from our variables. We didn’t have any luck with this either, and all our ROC curves showed the models were worse than random. 
 
-Model 3 (Reoffender ~ Establishment Type) 	0.475 
-Model 4 (Reoffender ~ Sex, Violent)  	0.502 
+Model 3 (Reoffender ~ Establishment Type) AUC =	0.475 
+
+Model 4 (Reoffender ~ Sex, Violent)  AUC =	0.502 
 
 This was, of course, not the outcome we’d hoped for when starting this investigation, though we understand it can be the nature of looking at real data sets. 
 
 
-We considered that we possibly went into this investigation with assumptions about correlation that did not actually exist. 
+We considered that we possibly went into this investigation with assumptions about correlation that did not actually exist. Still, this investigation has been insightful by showing that, at least for Q1 of 2022, there is no way to say for certain if a prisoner is likely to be prone to violence or crime based on identities, and those who commit violent acts are not necessarily more inclined to crime in general.
 
+Of course, we have looked at data for a very short period of time and it would be wrong to extrapolate our findings to make assumptions about UK prison behavior as a whole.
 
 ## References
 
