@@ -56,7 +56,7 @@ In theory, knowing which age group etc. is the most likely to commit crime and m
 
 ## Our data set
 
-Ministry of Justice, 28th July 2022, CSV data set and variable guide: Adjudications Q1 2022, electronic data set, Viewed 20th October 2023, https://www.gov.uk/government/statistics/offender-management-statistics-quarterly-january-to-march-2022 
+Ministry of Justice, 27th July 2023, CSV data set and variable guide: Adjudications Q1 2023, electronic data set, Viewed 20th October 2023, https://www.gov.uk/government/statistics/offender-management-statistics-quarterly-january-to-march-2023
 
 The key variables we are looking at are Age Group, Offence, Count, Sex and Predominant function of establishment. 
 
@@ -92,7 +92,7 @@ labs(title = "No. of Offences Committed in Different Prison Types", y = "No. of 
 ```
 
 
-From the visualization we can see that the majority of crimes are committed by people in the 30-39 age group, though we suspect that is likely because there is simply more people of that age group in prison. Because our data set only shows data for people who HAVE committed crimes in prison, we are unable to confirm if this is true. We split the offences into violent and non-violent, which is shown by the division of the bars. Interestingly, although perhaps expected, is the fact that we can see in category D prisons (in which prisoners are allowed to leave during the day), there is almost no violent crimes. The prison type with the highest % of violent crimes are ‘Youth Justice Board’ prisons, in which just under half of crimes committed were violent in nature in Q1 of 2022.
+From the visualization we can see that the majority of crimes are committed by people in the 30-39 age group, though we suspect that is likely because there is simply more people of that age group in prison. Because our data set only shows data for people who HAVE committed crimes in prison, we are unable to confirm if this is true. We split the offences into violent and non-violent, which is shown by the division of the bars. Interestingly, although perhaps expected, is the fact that we can see in category D prisons (in which prisoners are allowed to leave during the day), there is almost no violent crimes. The prison type with the highest % of violent crimes are ‘Youth Justice Board’ prisons, in which just under half of crimes committed were violent in nature in Q1 of 2023.
 
 We found that non-violent crimes make up the majority of crimes committed.
 
@@ -264,7 +264,7 @@ Model 4 (Reoffender ~ Sex, Violent)  AUC =	0.502
 This was, of course, not the outcome we’d hoped for when starting this investigation, though we understand it can be the nature of looking at real data sets. 
 
 
-We considered that we possibly went into this investigation with assumptions about correlation that did not actually exist. Still, this investigation has been insightful by showing that, at least for Q1 of 2022, there is no way to say for certain if a prisoner is likely to be prone to violence or crime based on identities, and those who commit violent acts are not necessarily more inclined to crime in general.
+We considered that we possibly went into this investigation with assumptions about correlation that did not actually exist. Still, this investigation has been insightful by showing that, at least for Q1 of 2023, there is no way to say for certain if a prisoner is likely to be prone to violence or crime based on identities, and those who commit violent acts are not necessarily more inclined to crime in general.
 
 Of course, we have looked at data for a very short period of time and it would be wrong to extrapolate our findings to make assumptions about UK prison behavior as a whole.
 
@@ -277,5 +277,5 @@ Definition of violence - Merriam-Webster Dictionary - https://www.merriam-webste
 Obtained code for modifying axis text size for first visualisations -
 https://ggplot2.tidyverse.org/articles/faq-customising.html#:~:text=in%20theme()%20.-,In%20both%20cases%2C%20set%20font%20size%20in%20the%20size%20argument,title.
 
-Ministry of Justice, 28th July 2022, CSV data set and variable guide: Adjudications Q1 2022, electronic data set, Viewed 20th October 2023, https://www.gov.uk/government/statistics/offender-management-statistics-quarterly-january-to-march-2022 
+Ministry of Justice, 27th July 2023, CSV data set and variable guide: Adjudications Q1 2023, electronic data set, Viewed 20th October 2023, https://www.gov.uk/government/statistics/offender-management-statistics-quarterly-january-to-march-2023
 
