@@ -75,15 +75,25 @@ class: centre, middle
 
 - Our original data set came from the Government website, and details the criminal offences committed in prisons in England and Wales between the months of January and March of 2023.
 
-- We tidied the data, mutating the detailed offence to show whether the crime committed was violent or non-violent. When doing this, we took violent to mean "the use of physical force as to injure, abuse, damage or destroy". 
+- The key variables we are looking at are Age Group, Offence, Count, Sex and Predominant function of establishment. 
 
-- The variables in the data set were mainly characters so we changed many of these variables to be numerical to make producing models and visualisations easier. 
+Age group is a categorical variable that split prisoners into groups 18-20, 21-24, 25-29, 30-39, 40-49, 50-59, 60-69 and 70 and over.
+
+Offence is a categorical variable that says the offence committed by a singular prisoner whilst in prison.
+
+Count is a numerical variable that gives the number of times that a prisoner committed the same offence.
+
+Predominant Function of Establishment is a categorical variable that tells u the security rating of the prison. There is category A (high security), B (local and training prisons), C (training and resettlement), D (open prisons), Female, Local, Young Offender Institution (YOI) and Youth Justice Board.
 ---
 # Our research question and its importance?
 
 - We wanted to investigate whether any variables of the prisoner like sex, the prison type they are at, violence of the prisoner and age had any correlation with reoffending.
 
 - Our dataset has 24,647 prisoners who committed a crime in prison during the first quarter of 2023. Of these prisoners, 8137 reoffended multiple times. If a trend, and therefore a solution could be found, the number of reoffenders could decrease creating a safer environments in prisons.
+
+- We tidied the data, mutating the detailed offence to show whether the crime committed was violent or non-violent. When doing this, we took violent to mean "the use of physical force as to injure, abuse, damage or destroy". 
+
+- The variables in the data set were mainly characters so we changed many of these variables to be numerical to make producing models and visualisations easier. 
 ---
 
 class: inverse, centre, middle
